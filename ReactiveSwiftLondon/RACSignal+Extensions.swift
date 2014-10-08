@@ -35,6 +35,14 @@ extension RACSignal {
     }
   }
   
+  func flattenMapAs<T: AnyObject>(flattenMapClosure:(T) -> RACStream) -> RACSignal {
+    return self.flattenMap {
+      (next: AnyObject!) -> RACStream in
+      let nextAsT = next as T
+      return flattenMapClosure(nextAsT)
+    }
+  }
+  
   func doNextAs<T: AnyObject>(nextClosure:(T) -> ()) -> RACSignal {
     return self.doNext {
       (next: AnyObject!) -> () in
