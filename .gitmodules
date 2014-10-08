@@ -1,0 +1,4 @@
+[submodule "ReactiveCocoa"]
+	path = ReactiveCocoa
+	url = https://github.com/yusefnapora/ReactiveCocoa.git
+	branch = swift-compat

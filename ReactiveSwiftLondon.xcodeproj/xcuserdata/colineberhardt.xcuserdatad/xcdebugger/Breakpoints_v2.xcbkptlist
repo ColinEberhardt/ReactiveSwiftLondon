@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReactiveSwiftLondon/ViewController.swift"
+            timestampString = "434482227.596176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReactiveSwiftLondon.ViewController.(viewDidLoad (ReactiveSwiftLondon.ViewController) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "ReactiveSwiftLondon"
+                  urlString = "file:///Users/colineberhardt/Projects/ReactiveSwiftLondon/ReactiveSwiftLondon/ViewController.swift"
+                  timestampString = "434493512.529451"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reabstraction thunk helper from @callee_owned (@owned Swift.String) -&gt; (@unowned ()) to @callee_owned (@in Swift.String) -&gt; (@unowned ())"
+                  moduleName = "ReactiveSwiftLondon"
+                  urlString = "file:///Users/colineberhardt/Projects/ReactiveSwiftLondon/ReactiveSwiftLondon/ViewController.swift"
+                  timestampString = "434493512.52979"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
