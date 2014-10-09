@@ -18,6 +18,11 @@ class TweetTableViewCell: UITableViewCell {
     didSet {
       if let hasTweet = tweet {
         statusTextLabel.text = hasTweet.status
+        
+        rac_prepareForReuseSignal.subscribeNext {
+          (any) in
+          self.sentimentLabel.text = ""
+        }
 
         RACSignal
           .interval(0.5, onScheduler: RACScheduler(priority: RACSchedulerPriorityBackground))

@@ -11,7 +11,7 @@ import Foundation
 // a collection of extension methods that allows for strongly typed closures
 extension RACSignal {
   
-  func subscribeNextAs<T>(nextClosure:(T) -> ()) -> () {
+  func subscribeNextAs<T>(nextClosure: (T) -> ()) -> () {
     self.subscribeNext {
       (next: AnyObject!) -> () in
       let nextAsT = next! as T
@@ -19,7 +19,18 @@ extension RACSignal {
     }
   }
   
-  func mapAs<T: AnyObject, U: AnyObject>(mapClosure:(T) -> U) -> RACSignal {
+  func subscribeNextAs<T>(nextClosure: (T) -> (), errorClosure: (NSError) -> ()) -> () {
+    self.subscribeNext({
+      (next: AnyObject!) -> () in
+      let nextAsT = next! as T
+      nextClosure(nextAsT)
+    }, error: {
+      (error: NSError!) -> Void in
+      errorClosure(error)
+    })
+  }
+  
+  func mapAs<T: AnyObject, U: AnyObject>(mapClosure: (T) -> U) -> RACSignal {
     return self.map {
       (next: AnyObject!) -> AnyObject! in
       let nextAsT = next as T
@@ -27,7 +38,7 @@ extension RACSignal {
     }
   }
   
-  func filterAs<T: AnyObject>(filterClosure:(T) -> Bool) -> RACSignal {
+  func filterAs<T: AnyObject>(filterClosure: (T) -> Bool) -> RACSignal {
     return self.filter {
       (next: AnyObject!) -> Bool in
       let nextAsT = next as T
@@ -35,7 +46,7 @@ extension RACSignal {
     }
   }
   
-  func flattenMapAs<T: AnyObject>(flattenMapClosure:(T) -> RACStream) -> RACSignal {
+  func flattenMapAs<T: AnyObject>(flattenMapClosure: (T) -> RACStream) -> RACSignal {
     return self.flattenMap {
       (next: AnyObject!) -> RACStream in
       let nextAsT = next as T
@@ -43,7 +54,7 @@ extension RACSignal {
     }
   }
   
-  func doNextAs<T: AnyObject>(nextClosure:(T) -> ()) -> RACSignal {
+  func doNextAs<T: AnyObject>(nextClosure: (T) -> ()) -> RACSignal {
     return self.doNext {
       (next: AnyObject!) -> () in
       let nextAsT = next as T
@@ -53,7 +64,7 @@ extension RACSignal {
 }
 
 class RACSignalEx {
-  class func combineLatestAs<T, U, R: AnyObject>(signals:[RACSignal], reduce:(T,U) -> R) -> RACSignal {
+  class func combineLatestAs<T, U, R: AnyObject>(signals: [RACSignal], reduce: (T,U) -> R) -> RACSignal {
     return RACSignal.combineLatest(signals).mapAs {
       (tuple: RACTuple) -> R in
       return reduce(tuple.first as T, tuple.second as U)

@@ -15,20 +15,22 @@ enum TwitterInstantError: Int {
 }
 
 class Tweet: NSObject {
-  var profileImageUrl: String!
-  var username: String!
-  var status: String!
+  let profileImageUrl: String
+  let username: String
+  let status: String
   
+  init(profileImageUrl: String, username: String, status: String) {
+    self.profileImageUrl = profileImageUrl
+    self.username = username
+    self.status = status
+  }
   
-  class func tweetWithStatus(status: NSDictionary) -> Tweet {
-    let tweet = Tweet()
-    tweet.status = status["text"] as String;
-    
-    let user = status["user"] as NSDictionary;
-    tweet.profileImageUrl = user["profile_image_url"] as String;
-    tweet.username = user["screen_name"] as String;
-  
-    return tweet;
+  class func tweetWithStatus(json: NSDictionary) -> Tweet {
+    let status = json["text"] as String
+    let user = json["user"] as NSDictionary
+    let profileImageUrl = user["profile_image_url"] as String
+    let username = user["screen_name"] as String
+    return Tweet(profileImageUrl: profileImageUrl, username: username, status: status);
   }
 }
 
@@ -56,7 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     super.viewDidLoad()
    
     tweetsTableView.dataSource = self
-    
+    tweetsTableView.estimatedRowHeight = 68.0
+    tweetsTableView.rowHeight = UITableViewAutomaticDimension
     
     requestAccessToTwitterSignal()
       .then {
@@ -72,12 +75,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.signalForSearchWithText(text)
       }
       .deliverOn(RACScheduler.mainThreadScheduler())
-      .subscribeNextAs{
+      .subscribeNextAs({
         (tweets: NSDictionary) in
         let statuses = tweets["statuses"] as [NSDictionary]
         self.tweets = statuses.map { Tweet.tweetWithStatus($0) }
         self.tweetsTableView.reloadData()
-      }
+      }, {
+        (error) in
+        println(error)
+      })
   }
   
   private func requestAccessToTwitterSignal() -> RACSignal {
