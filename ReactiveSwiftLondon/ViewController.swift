@@ -14,11 +14,30 @@ enum TwitterInstantError: Int {
   case AccessDenied = 0, NoTwitterAccounts, InvalidResponse
 }
 
+class Tweet: NSObject {
+  var profileImageUrl: String!
+  var username: String!
+  var status: String!
+  
+  
+  class func tweetWithStatus(status: NSDictionary) -> Tweet {
+    let tweet = Tweet()
+    tweet.status = status["text"] as String;
+    
+    let user = status["user"] as NSDictionary;
+    tweet.profileImageUrl = user["profile_image_url"] as String;
+    tweet.username = user["screen_name"] as String;
+  
+    return tweet;
+  }
+}
+
 class ViewController: UIViewController, UITableViewDataSource {
   
   private let ErrorDomain = "TwitterSearch"
   private let accountStore: ACAccountStore
   private let twitterAccountType: ACAccountType
+  private var tweets: [Tweet]
 
   @IBOutlet weak var searchTextField: UITextField!
   @IBOutlet weak var tweetsTableView: UITableView!
@@ -28,6 +47,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     accountStore = ACAccountStore()
     twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
+    tweets = [Tweet]()
+    
     super.init(coder: aDecoder)
   }
   
@@ -35,6 +56,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     super.viewDidLoad()
    
     tweetsTableView.dataSource = self
+    
     
     requestAccessToTwitterSignal()
       .then {
@@ -47,13 +69,15 @@ class ViewController: UIViewController, UITableViewDataSource {
       .throttle(0.5)
       .flattenMapAs {
         (text: NSString) -> RACStream in
-        return self.signalForSearchWithText(text)
+        self.signalForSearchWithText(text)
       }
-      .subscribeNext {
-        (text: AnyObject!) in
-        println(text)
+      .deliverOn(RACScheduler.mainThreadScheduler())
+      .subscribeNextAs{
+        (tweets: NSDictionary) in
+        let statuses = tweets["statuses"] as [NSDictionary]
+        self.tweets = statuses.map { Tweet.tweetWithStatus($0) }
+        self.tweetsTableView.reloadData()
       }
-    
   }
   
   private func requestAccessToTwitterSignal() -> RACSignal {
@@ -100,7 +124,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         request.performRequestWithHandler {
           (data, response, _) -> Void in
-          if response.statusCode == 200 {
+          if response != nil && response.statusCode == 200 {
             let timelineData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil)
             subscriber.sendNext(timelineData)
             subscriber.sendCompleted()
@@ -115,12 +139,12 @@ class ViewController: UIViewController, UITableViewDataSource {
   
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return tweets.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
-    
+    let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as TweetTableViewCell
+    cell.tweet = tweets[indexPath.row]
     return cell
   }
 

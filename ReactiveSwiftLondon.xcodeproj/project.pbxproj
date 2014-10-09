@@ -17,6 +17,7 @@
 		3C5099FC19E5AB2900D2E5C7 /* RACSignal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5099FB19E5AB2900D2E5C7 /* RACSignal+Extensions.swift */; };
 		3C5099FE19E5AB2F00D2E5C7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5099FD19E5AB2F00D2E5C7 /* Social.framework */; };
 		3C509A0019E5AB4100D2E5C7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5099FF19E5AB4100D2E5C7 /* Accounts.framework */; };
+		3C509A0719E5EA4F00D2E5C7 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		3C5099FB19E5AB2900D2E5C7 /* RACSignal+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RACSignal+Extensions.swift"; sourceTree = "<group>"; };
 		3C5099FD19E5AB2F00D2E5C7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3C5099FF19E5AB4100D2E5C7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				3C5099C819E5A73200D2E5C7 /* Images.xcassets */,
 				3C5099CA19E5A73200D2E5C7 /* LaunchScreen.xib */,
 				3C5099BF19E5A73200D2E5C7 /* Supporting Files */,
+				3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */,
 			);
 			path = ReactiveSwiftLondon;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				3C5099C419E5A73200D2E5C7 /* ViewController.swift in Sources */,
 				3C5099C219E5A73200D2E5C7 /* AppDelegate.swift in Sources */,
 				3C5099FC19E5AB2900D2E5C7 /* RACSignal+Extensions.swift in Sources */,
+				3C509A0719E5EA4F00D2E5C7 /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
