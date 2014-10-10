@@ -10,13 +10,6 @@ import UIKit
 import Accounts
 import Social
 
-enum TwitterInstantError: Int {
-  case AccessDenied = 0, NoTwitterAccounts, InvalidResponse
-  
-  func toError() -> NSError {
-    return NSError.errorWithDomain("TwitterSearch", code: self.toRaw(), userInfo: nil)
-  }
-}
 
 class ViewController: UIViewController, UITableViewDataSource {
 
@@ -29,7 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource {
   
   private let accountStore: ACAccountStore
   private let twitterAccountType: ACAccountType
-  private var tweets: [Tweet]
+  private var tweets = [Tweet]()
   
   //MARK: ViewController lifecycle
   
@@ -37,9 +30,6 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     accountStore = ACAccountStore()
     twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-    
-    //tweets = [Tweet(profileImageUrl: "asd", username: "asdsad", status: "adasd")]
-    tweets = [Tweet]()
     
     super.init(coder: aDecoder)
   }
@@ -74,8 +64,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         let statuses = tweets["statuses"] as [NSDictionary]
         self.tweets = statuses.map { Tweet(json: $0) }
         self.tweetsTableView.reloadData()
-        self.tweetsTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
-        
+        self.tweetsTableView.scrollToTop()
       }, {
         (error) in
         println(error)
@@ -86,7 +75,8 @@ class ViewController: UIViewController, UITableViewDataSource {
   
   private func requestAccessToTwitterSignal() -> RACSignal {
     
-    return RACSignal.createSignal({ (subscriber) -> RACDisposable! in
+    return RACSignal.createSignal {
+      (subscriber) -> RACDisposable! in
       self.accountStore.requestAccessToAccountsWithType(self.twitterAccountType, options: nil) {
         (granted, _) -> Void in
         if granted {
@@ -97,31 +87,34 @@ class ViewController: UIViewController, UITableViewDataSource {
         }
       }
       return nil
-    })
+    }
   }
   
   private func signalForSearchWithText(text: String) -> RACSignal {
 
-    func requestforTwitterSearchWithText(text: String) -> SLRequest {
+    func requestforSearchText(text: String) -> SLRequest {
       let url = NSURL(string: "https://api.twitter.com/1.1/search/tweets.json")
-      let params = ["q" : text, "count": "100", "lang" : "en"]
+      let params = [
+        "q" : text,
+        "count": "100",
+        "lang" : "en"
+      ]
       return SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: url, parameters: params)
     }
     
     return RACSignal.createSignal {
       subscriber -> RACDisposable! in
       
-      let request = requestforTwitterSearchWithText(text)
+      let request = requestforSearchText(text)
       let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as [ACAccount]
       if twitterAccounts.count == 0 {
         subscriber.sendError(TwitterInstantError.NoTwitterAccounts.toError())
       } else {
         request.account = twitterAccounts[0]
-        
         request.performRequestWithHandler {
           (data, response, _) -> Void in
           if response != nil && response.statusCode == 200 {
-            let timelineData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil)
+            let timelineData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil) as NSDictionary
             subscriber.sendNext(timelineData)
             subscriber.sendCompleted()
           } else {

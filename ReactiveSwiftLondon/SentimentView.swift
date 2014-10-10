@@ -8,6 +8,7 @@
 
 import Foundation
 
+// A simple view that shows a summary of the current sentiment value
 class SentimentView: UIView {
   
   var positive = 0, negative = 0, neutral = 0
@@ -43,6 +44,7 @@ class SentimentView: UIView {
     self.addSubview(neutralFace)
     self.addSubview(waitingFace)
    
+    // subscribe to sentiment notifications
     NSNotificationCenter.defaultCenter().rac_addObserverForName("sentiment", object: nil)
       .subscribeNextAs {
         (notification: NSNotification) -> () in
