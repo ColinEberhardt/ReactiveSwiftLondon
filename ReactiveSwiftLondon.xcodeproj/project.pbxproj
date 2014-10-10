@@ -18,6 +18,9 @@
 		3C5099FE19E5AB2F00D2E5C7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5099FD19E5AB2F00D2E5C7 /* Social.framework */; };
 		3C509A0019E5AB4100D2E5C7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5099FF19E5AB4100D2E5C7 /* Accounts.framework */; };
 		3C509A0719E5EA4F00D2E5C7 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */; };
+		3C509A0B19E7A5CA00D2E5C7 /* negative.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0819E7A5CA00D2E5C7 /* negative.png */; };
+		3C509A0C19E7A5CA00D2E5C7 /* neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0919E7A5CA00D2E5C7 /* neutral.png */; };
+		3C509A0D19E7A5CA00D2E5C7 /* positive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0A19E7A5CA00D2E5C7 /* positive.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +99,9 @@
 		3C5099FD19E5AB2F00D2E5C7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3C5099FF19E5AB4100D2E5C7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		3C509A0819E7A5CA00D2E5C7 /* negative.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = negative.png; sourceTree = "<group>"; };
+		3C509A0919E7A5CA00D2E5C7 /* neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral.png; sourceTree = "<group>"; };
+		3C509A0A19E7A5CA00D2E5C7 /* positive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = positive.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +149,9 @@
 		3C5099BE19E5A73200D2E5C7 /* ReactiveSwiftLondon */ = {
 			isa = PBXGroup;
 			children = (
+				3C509A0819E7A5CA00D2E5C7 /* negative.png */,
+				3C509A0919E7A5CA00D2E5C7 /* neutral.png */,
+				3C509A0A19E7A5CA00D2E5C7 /* positive.png */,
 				3C5099FB19E5AB2900D2E5C7 /* RACSignal+Extensions.swift */,
 				3C5099F919E5A8C200D2E5C7 /* BridgingHeader.h */,
 				3C5099C119E5A73200D2E5C7 /* AppDelegate.swift */,
@@ -335,6 +344,9 @@
 			files = (
 				3C5099C719E5A73200D2E5C7 /* Main.storyboard in Resources */,
 				3C5099CC19E5A73200D2E5C7 /* LaunchScreen.xib in Resources */,
+				3C509A0D19E7A5CA00D2E5C7 /* positive.png in Resources */,
+				3C509A0C19E7A5CA00D2E5C7 /* neutral.png in Resources */,
+				3C509A0B19E7A5CA00D2E5C7 /* negative.png in Resources */,
 				3C5099C919E5A73200D2E5C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

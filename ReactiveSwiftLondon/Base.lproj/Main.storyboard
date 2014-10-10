@@ -32,19 +32,22 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GbM-UH-dBO" id="M52-mr-Q2j">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHe-8Z-GUJ">
-                                                    <rect key="frame" x="96" y="45" width="218" height="56"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHe-8Z-GUJ">
+                                                    <rect key="frame" x="96" y="46" width="218" height="56"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xes-X9-8yH">
-                                                    <rect key="frame" x="96" y="9" width="216" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xes-X9-8yH">
+                                                    <rect key="frame" x="138" y="11" width="174" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trd-le-Atp">
+                                                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="positive.png" translatesAutoresizingMaskIntoConstraints="NO" id="FoA-4r-4Mv">
+                                                    <rect key="frame" x="96" y="9" width="34" height="34"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="trd-le-Atp">
                                                     <rect key="frame" x="8" y="9" width="80" height="80"/>
                                                     <color key="backgroundColor" white="0.81817404199999999" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -54,14 +57,27 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="FoA-4r-4Mv" firstAttribute="leading" secondItem="trd-le-Atp" secondAttribute="trailing" constant="8" id="1Ph-yI-dYx"/>
+                                                <constraint firstItem="trd-le-Atp" firstAttribute="top" secondItem="M52-mr-Q2j" secondAttribute="topMargin" constant="1" id="Dfl-Ci-Xwx"/>
+                                                <constraint firstItem="xes-X9-8yH" firstAttribute="leading" secondItem="FoA-4r-4Mv" secondAttribute="trailing" constant="8" id="Qt2-ql-hJZ"/>
+                                                <constraint firstItem="xes-X9-8yH" firstAttribute="top" secondItem="M52-mr-Q2j" secondAttribute="topMargin" constant="3" id="WqT-JW-qng"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tHe-8Z-GUJ" secondAttribute="bottom" id="aAW-PU-ruQ"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="trd-le-Atp" secondAttribute="bottom" constant="5" id="bK6-gn-iCk"/>
+                                                <constraint firstItem="FoA-4r-4Mv" firstAttribute="top" secondItem="M52-mr-Q2j" secondAttribute="topMargin" constant="1" id="cVb-kb-kJW"/>
                                                 <constraint firstItem="tHe-8Z-GUJ" firstAttribute="leading" secondItem="trd-le-Atp" secondAttribute="trailing" constant="8" id="fXW-vs-nlj"/>
+                                                <constraint firstItem="tHe-8Z-GUJ" firstAttribute="top" secondItem="xes-X9-8yH" secondAttribute="bottom" constant="8" id="haH-ra-mho"/>
                                                 <constraint firstItem="xes-X9-8yH" firstAttribute="top" secondItem="M52-mr-Q2j" secondAttribute="topMargin" constant="1" id="lLW-hR-Tuf"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="tHe-8Z-GUJ" secondAttribute="trailing" id="oHr-vn-iqA"/>
+                                                <constraint firstItem="tHe-8Z-GUJ" firstAttribute="top" secondItem="FoA-4r-4Mv" secondAttribute="bottom" constant="3" id="t2R-BH-qvl"/>
                                                 <constraint firstItem="tHe-8Z-GUJ" firstAttribute="top" secondItem="xes-X9-8yH" secondAttribute="bottom" constant="13" id="vw7-Ck-SdL"/>
                                                 <constraint firstItem="trd-le-Atp" firstAttribute="leading" secondItem="M52-mr-Q2j" secondAttribute="leadingMargin" id="yzv-WP-Bb6"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="vw7-Ck-SdL"/>
+                                                    <exclude reference="lLW-hR-Tuf"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImageView" destination="trd-le-Atp" id="Ovy-8x-aRb"/>
@@ -92,7 +108,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="317" y="298"/>
+            <point key="canvasLocation" x="317" y="295"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="positive.png" width="34" height="34"/>
+    </resources>
 </document>

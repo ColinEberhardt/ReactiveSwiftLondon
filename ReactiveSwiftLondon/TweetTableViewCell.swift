@@ -18,6 +18,7 @@ class TweetTableViewCell: UITableViewCell {
     didSet {
       if let hasTweet = tweet {
         statusTextLabel.text = hasTweet.status
+        sentimentLabel.text = "@" + hasTweet.username
         
         rac_prepareForReuseSignal.subscribeNext {
           (any) in
@@ -30,7 +31,7 @@ class TweetTableViewCell: UITableViewCell {
           .takeUntil(rac_prepareForReuseSignal)
           .flattenMap {
             (next) -> RACStream in
-            self.obtainSentimentSignal2(hasTweet)
+            self.obtainSentimentSignal(hasTweet)
           }
           .deliverOn(RACScheduler.mainThreadScheduler())
           .subscribeNextAs {
@@ -38,26 +39,38 @@ class TweetTableViewCell: UITableViewCell {
             self.sentimentLabel.text = sentiment
           }
         
+        avatarImageView.image = nil
+        avatarImageSignal(hasTweet.profileImageUrl)
+          .takeUntil(rac_prepareForReuseSignal)
+          .deliverOn(RACScheduler.mainThreadScheduler())
+          .subscribeNextAs {
+            (image: UIImage) in
+            self.avatarImageView.image = image
+          }
+       
       } 
     }
   }
   
-  private func obtainSentimentSignal(tweet: Tweet) -> RACSignal {
-    return RACSignal.createSignal {
+  private func avatarImageSignal(imageUrl: String) -> RACSignal {
+    return RACSignal.createSignal{
       (subscriber) -> RACDisposable! in
-      subscriber.sendNext("negative")
+      let data = NSData(contentsOfURL: NSURL(string: imageUrl))
+      let image = UIImage(data: data)
+      subscriber.sendNext(image)
       subscriber.sendCompleted()
       return nil
     }
+    .subscribeOn(RACScheduler(priority: RACSchedulerPriorityBackground))
   }
   
   
-  private func obtainSentimentSignal2(tweet: Tweet) -> RACSignal {
+  
+  private func obtainSentimentSignal(tweet: Tweet) -> RACSignal {
     return RACSignal.createSignal {
       (subscriber) -> RACDisposable! in
       
       let encodedSearchText = tweet.status.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-      println(encodedSearchText)
       let url = "https://loudelement-free-natural-language-processing-service.p.mashape.com/nlp-text/?text=" + encodedSearchText!
       
       let urlRequest = NSMutableURLRequest(URL: NSURL(string: url))

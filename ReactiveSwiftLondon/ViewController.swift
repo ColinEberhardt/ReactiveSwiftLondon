@@ -80,6 +80,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         let statuses = tweets["statuses"] as [NSDictionary]
         self.tweets = statuses.map { Tweet.tweetWithStatus($0) }
         self.tweetsTableView.reloadData()
+        self.tweetsTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
+        
       }, {
         (error) in
         println(error)
