@@ -21,6 +21,8 @@
 		3C509A0B19E7A5CA00D2E5C7 /* negative.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0819E7A5CA00D2E5C7 /* negative.png */; };
 		3C509A0C19E7A5CA00D2E5C7 /* neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0919E7A5CA00D2E5C7 /* neutral.png */; };
 		3C509A0D19E7A5CA00D2E5C7 /* positive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C509A0A19E7A5CA00D2E5C7 /* positive.png */; };
+		3C509A0F19E7BC6000D2E5C7 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C509A0E19E7BC6000D2E5C7 /* Tweet.swift */; };
+		3C509A1119E7BF0300D2E5C7 /* SentimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C509A1019E7BF0300D2E5C7 /* SentimentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		3C509A0819E7A5CA00D2E5C7 /* negative.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = negative.png; sourceTree = "<group>"; };
 		3C509A0919E7A5CA00D2E5C7 /* neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neutral.png; sourceTree = "<group>"; };
 		3C509A0A19E7A5CA00D2E5C7 /* positive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = positive.png; sourceTree = "<group>"; };
+		3C509A0E19E7BC6000D2E5C7 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		3C509A1019E7BF0300D2E5C7 /* SentimentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,8 @@
 				3C5099CA19E5A73200D2E5C7 /* LaunchScreen.xib */,
 				3C5099BF19E5A73200D2E5C7 /* Supporting Files */,
 				3C509A0619E5EA4F00D2E5C7 /* TweetTableViewCell.swift */,
+				3C509A0E19E7BC6000D2E5C7 /* Tweet.swift */,
+				3C509A1019E7BF0300D2E5C7 /* SentimentView.swift */,
 			);
 			path = ReactiveSwiftLondon;
 			sourceTree = "<group>";
@@ -365,7 +371,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C509A1119E7BF0300D2E5C7 /* SentimentView.swift in Sources */,
 				3C5099C419E5A73200D2E5C7 /* ViewController.swift in Sources */,
+				3C509A0F19E7BC6000D2E5C7 /* Tweet.swift in Sources */,
 				3C5099C219E5A73200D2E5C7 /* AppDelegate.swift in Sources */,
 				3C5099FC19E5AB2900D2E5C7 /* RACSignal+Extensions.swift in Sources */,
 				3C509A0719E5EA4F00D2E5C7 /* TweetTableViewCell.swift in Sources */,

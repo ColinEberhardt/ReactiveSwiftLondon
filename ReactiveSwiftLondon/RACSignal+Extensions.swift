@@ -14,8 +14,14 @@ extension RACSignal {
   func subscribeNextAs<T>(nextClosure: (T) -> ()) -> () {
     self.subscribeNext {
       (next: AnyObject!) -> () in
-      let nextAsT = next! as T
-      nextClosure(nextAsT)
+      if (next == nil) {
+        // for some reason I am seeing the occasional nil 
+        // ... still looking into it!
+        println("ERROR", next)
+      } else {
+        let nextAsT = next! as T
+        nextClosure(nextAsT)
+      }
     }
   }
   

@@ -12,43 +12,33 @@ import Social
 
 enum TwitterInstantError: Int {
   case AccessDenied = 0, NoTwitterAccounts, InvalidResponse
-}
-
-class Tweet: NSObject {
-  let profileImageUrl: String
-  let username: String
-  let status: String
   
-  init(profileImageUrl: String, username: String, status: String) {
-    self.profileImageUrl = profileImageUrl
-    self.username = username
-    self.status = status
-  }
-  
-  class func tweetWithStatus(json: NSDictionary) -> Tweet {
-    let status = json["text"] as String
-    let user = json["user"] as NSDictionary
-    let profileImageUrl = user["profile_image_url"] as String
-    let username = user["screen_name"] as String
-    return Tweet(profileImageUrl: profileImageUrl, username: username, status: status);
+  func toError() -> NSError {
+    return NSError.errorWithDomain("TwitterSearch", code: self.toRaw(), userInfo: nil)
   }
 }
 
 class ViewController: UIViewController, UITableViewDataSource {
+
+  //MARK: outlets
   
-  private let ErrorDomain = "TwitterSearch"
+  @IBOutlet weak var searchTextField: UITextField!
+  @IBOutlet weak var tweetsTableView: UITableView!
+  
+  //MARK: properties
+  
   private let accountStore: ACAccountStore
   private let twitterAccountType: ACAccountType
   private var tweets: [Tweet]
-
-  @IBOutlet weak var searchTextField: UITextField!
-  @IBOutlet weak var tweetsTableView: UITableView!
+  
+  //MARK: ViewController lifecycle
   
   required init(coder aDecoder: NSCoder) {
     
     accountStore = ACAccountStore()
     twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
+    //tweets = [Tweet(profileImageUrl: "asd", username: "asdsad", status: "adasd")]
     tweets = [Tweet]()
     
     super.init(coder: aDecoder)
@@ -70,6 +60,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         text.length > 3
       }
       .throttle(0.5)
+      .doNext {
+        (any) in
+        NSNotificationCenter.defaultCenter().postNotificationName("sentiment", object: "reset")
+      }
       .flattenMapAs {
         (text: NSString) -> RACStream in
         self.signalForSearchWithText(text)
@@ -78,7 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource {
       .subscribeNextAs({
         (tweets: NSDictionary) in
         let statuses = tweets["statuses"] as [NSDictionary]
-        self.tweets = statuses.map { Tweet.tweetWithStatus($0) }
+        self.tweets = statuses.map { Tweet(json: $0) }
         self.tweetsTableView.reloadData()
         self.tweetsTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
         
@@ -88,9 +82,9 @@ class ViewController: UIViewController, UITableViewDataSource {
       })
   }
   
+  //MARK: Functions that create signals
+  
   private func requestAccessToTwitterSignal() -> RACSignal {
-    
-    let accessError = NSError.errorWithDomain(ErrorDomain, code: TwitterInstantError.AccessDenied.toRaw(), userInfo: nil)
     
     return RACSignal.createSignal({ (subscriber) -> RACDisposable! in
       self.accountStore.requestAccessToAccountsWithType(self.twitterAccountType, options: nil) {
@@ -99,14 +93,12 @@ class ViewController: UIViewController, UITableViewDataSource {
           subscriber.sendNext(nil)
           subscriber.sendCompleted()
         } else {
-          subscriber.sendError(accessError)
+          subscriber.sendError(TwitterInstantError.AccessDenied.toError())
         }
       }
       return nil
     })
   }
-  
-
   
   private func signalForSearchWithText(text: String) -> RACSignal {
 
@@ -116,19 +108,15 @@ class ViewController: UIViewController, UITableViewDataSource {
       return SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: url, parameters: params)
     }
     
-    let noAccountsError = NSError.errorWithDomain(ErrorDomain, code: TwitterInstantError.NoTwitterAccounts.toRaw(), userInfo: nil)
-    
-    let invalidResponseError = NSError.errorWithDomain(ErrorDomain, code: TwitterInstantError.InvalidResponse.toRaw(), userInfo: nil)
-    
     return RACSignal.createSignal {
       subscriber -> RACDisposable! in
       
       let request = requestforTwitterSearchWithText(text)
-      let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType)
+      let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as [ACAccount]
       if twitterAccounts.count == 0 {
-        subscriber.sendError(noAccountsError)
+        subscriber.sendError(TwitterInstantError.NoTwitterAccounts.toError())
       } else {
-        request.account = twitterAccounts[0] as ACAccount
+        request.account = twitterAccounts[0]
         
         request.performRequestWithHandler {
           (data, response, _) -> Void in
@@ -137,7 +125,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             subscriber.sendNext(timelineData)
             subscriber.sendCompleted()
           } else {
-            subscriber.sendError(invalidResponseError)
+            subscriber.sendError(TwitterInstantError.InvalidResponse.toError())
           }
         }
       }
@@ -145,6 +133,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
   }
   
+  //MARK: Table view datasource methods
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tweets.count

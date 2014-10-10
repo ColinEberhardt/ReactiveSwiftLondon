@@ -10,9 +10,14 @@ import Foundation
 
 class TweetTableViewCell: UITableViewCell {
   
+  // MARK: Outlets
+  
   @IBOutlet weak var avatarImageView: UIImageView!
   @IBOutlet weak var statusTextLabel: UILabel!
   @IBOutlet weak var sentimentLabel: UILabel!
+  @IBOutlet weak var sentimentIndicator: UIView!
+  
+  //MARK: Properties
   
   var tweet: Tweet? {
     didSet {
@@ -22,7 +27,7 @@ class TweetTableViewCell: UITableViewCell {
         
         rac_prepareForReuseSignal.subscribeNext {
           (any) in
-          self.sentimentLabel.text = ""
+          self.sentimentIndicator.backgroundColor = UIColor.clearColor()
         }
 
         RACSignal
@@ -36,7 +41,8 @@ class TweetTableViewCell: UITableViewCell {
           .deliverOn(RACScheduler.mainThreadScheduler())
           .subscribeNextAs {
             (sentiment: String) in
-            self.sentimentLabel.text = sentiment
+            NSNotificationCenter.defaultCenter().postNotificationName("sentiment", object: sentiment)
+            self.sentimentIndicator.backgroundColor = self.sentimentToColor(sentiment)
           }
         
         avatarImageView.image = nil
@@ -52,6 +58,21 @@ class TweetTableViewCell: UITableViewCell {
     }
   }
   
+  private func sentimentToColor(sentiment: String) -> UIColor {
+    switch sentiment {
+    case "positive":
+      return UIColor.greenColor()
+    case "negative":
+      return UIColor.redColor()
+    case "neutral":
+      return UIColor.yellowColor()
+    default:
+      return UIColor.clearColor()
+    }
+  }
+  
+  // MARK: Functions that create signals
+  
   private func avatarImageSignal(imageUrl: String) -> RACSignal {
     return RACSignal.createSignal{
       (subscriber) -> RACDisposable! in
@@ -63,8 +84,6 @@ class TweetTableViewCell: UITableViewCell {
     }
     .subscribeOn(RACScheduler(priority: RACSchedulerPriorityBackground))
   }
-  
-  
   
   private func obtainSentimentSignal(tweet: Tweet) -> RACSignal {
     return RACSignal.createSignal {
@@ -92,10 +111,5 @@ class TweetTableViewCell: UITableViewCell {
       return nil
     }
   }
-  
-  required init(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-  
   
 }
