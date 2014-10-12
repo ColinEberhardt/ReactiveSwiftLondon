@@ -33,29 +33,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fek-Cg-4kt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="5" height="103"/>
+                                                    <rect key="frame" x="0.0" y="1" width="5" height="103"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="5" id="mLN-Ru-7T8"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHe-8Z-GUJ">
-                                                    <rect key="frame" x="96" y="47" width="218" height="56"/>
+                                                    <rect key="frame" x="78" y="49" width="236" height="56"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xes-X9-8yH">
-                                                    <rect key="frame" x="96" y="12" width="216" height="27"/>
+                                                    <rect key="frame" x="78" y="13" width="234" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trd-le-Atp">
-                                                    <rect key="frame" x="8" y="10" width="80" height="80"/>
+                                                    <rect key="frame" x="8" y="13" width="62" height="62"/>
                                                     <color key="backgroundColor" white="0.81817404199999999" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="CB5-Bs-yJL"/>
-                                                        <constraint firstAttribute="height" constant="80" id="QRk-88-Dsi"/>
+                                                        <constraint firstAttribute="width" constant="62" id="CB5-Bs-yJL"/>
+                                                        <constraint firstAttribute="height" constant="62" id="QRk-88-Dsi"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -67,7 +67,7 @@
                                                 <constraint firstItem="fek-Cg-4kt" firstAttribute="leading" secondItem="M52-mr-Q2j" secondAttribute="leadingMargin" constant="-8" id="Qw2-vd-YGn"/>
                                                 <constraint firstItem="xes-X9-8yH" firstAttribute="top" secondItem="M52-mr-Q2j" secondAttribute="topMargin" constant="3" id="WqT-JW-qng"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tHe-8Z-GUJ" secondAttribute="bottom" id="aAW-PU-ruQ"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="trd-le-Atp" secondAttribute="bottom" constant="5" id="bK6-gn-iCk"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="trd-le-Atp" secondAttribute="bottom" constant="15" id="bK6-gn-iCk"/>
                                                 <constraint firstItem="xes-X9-8yH" firstAttribute="leading" secondItem="trd-le-Atp" secondAttribute="trailing" constant="8" id="e4C-3I-pSE"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fek-Cg-4kt" secondAttribute="bottom" constant="-8" id="fJ1-Jx-6o0"/>
                                                 <constraint firstItem="tHe-8Z-GUJ" firstAttribute="leading" secondItem="trd-le-Atp" secondAttribute="trailing" constant="8" id="fXW-vs-nlj"/>
@@ -101,7 +101,7 @@
                                 <rect key="frame" x="192" y="26" width="124" height="34"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95972086824300895" green="0.96398435023116968" blue="0.97677479619565222" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="NRP-Oy-sHQ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="K2x-MA-EJE"/>
                             <constraint firstItem="NRP-Oy-sHQ" firstAttribute="top" secondItem="Fd0-31-iNG" secondAttribute="bottom" constant="22" id="Wi7-1k-ukd"/>
@@ -133,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="310" y="326"/>
+            <point key="canvasLocation" x="310" y="323"/>
         </scene>
     </scenes>
 </document>

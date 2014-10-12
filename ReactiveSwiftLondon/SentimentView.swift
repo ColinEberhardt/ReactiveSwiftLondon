@@ -84,11 +84,11 @@ class SentimentView: UIView {
     let yscale = scale(0, 3, 0, Double(self.bounds.height))
     
     positiveLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 0),
-      width: xscale(pt: Double(positive)), height: yscale(pt: 1))
+      width: xscale(pt: Double(positive)) - xscale(pt: Double(0)), height: yscale(pt: 1))
     neutralLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 1),
-      width: xscale(pt: Double(neutral)), height: yscale(pt: 1))
+      width: xscale(pt: Double(neutral)) - xscale(pt: Double(0)), height: yscale(pt: 1))
     negativeLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 2),
-      width: xscale(pt: Double(negative)), height: yscale(pt: 1))
+      width: xscale(pt: Double(negative)) - xscale(pt: Double(0)), height: yscale(pt: 1))
     
     positiveFace.alpha = 0.0
     negativeFace.alpha = 0.0

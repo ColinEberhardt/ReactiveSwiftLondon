@@ -41,6 +41,13 @@ class ViewController: UIViewController, UITableViewDataSource {
     tweetsTableView.estimatedRowHeight = 68.0
     tweetsTableView.rowHeight = UITableViewAutomaticDimension
     
+    self.searchTextField.rac_textSignal()
+      .mapAs {
+        (text: NSString) -> UIColor in
+        text.length <= 3 ? UIColor.yellowColor() : UIColor.whiteColor()
+      }
+      .setKeyPath("backgroundColor", onObject: searchTextField)
+    
     requestAccessToTwitterSignal()
       .then {
         self.searchTextField.rac_textSignal()
