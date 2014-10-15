@@ -56,6 +56,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         (text: NSString) -> Bool in
         text.length > 3
       }
+      .doNext {
+        (any) in
+        self.tweetsTableView.alpha = 0.5
+      }
       .throttle(0.5)
       .doNext {
         (any) in
@@ -72,6 +76,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.tweets = statuses.map { Tweet(json: $0) }
         self.tweetsTableView.reloadData()
         self.tweetsTableView.scrollToTop()
+        self.tweetsTableView.alpha = 1.0
       }, {
         (error) in
         println(error)
