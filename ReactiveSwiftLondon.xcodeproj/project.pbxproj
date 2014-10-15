@@ -580,6 +580,7 @@
 				3C5099DD19E5A73200D2E5C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C5099DE19E5A73200D2E5C7 /* Build configuration list for PBXNativeTarget "ReactiveSwiftLondonTests" */ = {
 			isa = XCConfigurationList;
@@ -588,6 +589,7 @@
 				3C5099E019E5A73200D2E5C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

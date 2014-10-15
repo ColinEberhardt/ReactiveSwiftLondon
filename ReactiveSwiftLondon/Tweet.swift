@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Tweet: NSObject {
+struct Tweet {
   let profileImageUrl: String
   let username: String
   let status: String
@@ -20,7 +20,7 @@ class Tweet: NSObject {
     self.status = status
   }
   
-  convenience init(json: NSDictionary) {
+  init(json: NSDictionary) {
     let status = json["text"] as String
     let user = json["user"] as NSDictionary
     let profileImageUrl = user["profile_image_url"] as String

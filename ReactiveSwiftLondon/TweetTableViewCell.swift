@@ -47,6 +47,7 @@ class TweetTableViewCell: UITableViewCell {
         
         avatarImageView.image = nil
         avatarImageSignal(hasTweet.profileImageUrl)
+          .subscribeOn(RACScheduler(priority: RACSchedulerPriorityBackground))
           .takeUntil(rac_prepareForReuseSignal)
           .deliverOn(RACScheduler.mainThreadScheduler())
           .subscribeNextAs {
@@ -82,7 +83,6 @@ class TweetTableViewCell: UITableViewCell {
       subscriber.sendCompleted()
       return nil
     }
-    .subscribeOn(RACScheduler(priority: RACSchedulerPriorityBackground))
   }
   
   private func obtainSentimentSignal(tweet: Tweet) -> RACSignal {

@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     self.searchTextField.rac_textSignal()
       .mapAs {
         (text: NSString) -> UIColor in
-        text.length <= 3 ? UIColor.yellowColor() : UIColor.whiteColor()
+        text.length <= 3 ? UIColor.lightRedColor() : UIColor.whiteColor()
       }
       .setKeyPath("backgroundColor", onObject: searchTextField)
     
@@ -97,6 +97,15 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
   }
   
+  private func getTwitterAccount() -> ACAccount? {
+    let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as [ACAccount]
+    if twitterAccounts.count == 0 {
+      return nil
+    } else {
+      return twitterAccounts[0]
+    }
+  }
+  
   private func signalForSearchWithText(text: String) -> RACSignal {
 
     func requestforSearchText(text: String) -> SLRequest {
@@ -113,22 +122,24 @@ class ViewController: UIViewController, UITableViewDataSource {
       subscriber -> RACDisposable! in
       
       let request = requestforSearchText(text)
-      let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as [ACAccount]
-      if twitterAccounts.count == 0 {
-        subscriber.sendError(TwitterInstantError.NoTwitterAccounts.toError())
-      } else {
-        request.account = twitterAccounts[0]
+      let maybeTwitterAccount = self.getTwitterAccount()
+      
+      if let twitterAccount = maybeTwitterAccount {
+        request.account = twitterAccount
         request.performRequestWithHandler {
           (data, response, _) -> Void in
           if response != nil && response.statusCode == 200 {
-            let timelineData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil) as NSDictionary
+            let timelineData = NSJSONSerialization.parseJSONToDictionary(data)
             subscriber.sendNext(timelineData)
             subscriber.sendCompleted()
           } else {
             subscriber.sendError(TwitterInstantError.InvalidResponse.toError())
           }
         }
+      } else {
+        subscriber.sendError(TwitterInstantError.NoTwitterAccounts.toError())
       }
+      
       return nil
     }
   }
