@@ -13,6 +13,6 @@ enum TwitterInstantError: Int {
   case AccessDenied = 0, NoTwitterAccounts, InvalidResponse
   
   func toError() -> NSError {
-    return NSError.errorWithDomain("TwitterSearch", code: self.toRaw(), userInfo: nil)
+    return NSError(domain:"TwitterSearch", code: self.rawValue, userInfo: nil)
   }
 }

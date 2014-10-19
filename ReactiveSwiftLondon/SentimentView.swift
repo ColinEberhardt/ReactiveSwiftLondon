@@ -70,25 +70,31 @@ class SentimentView: UIView {
   
   private func updateLayerBounds() {
     
-    func scale(min: Double, max: Double, min2: Double, max2: Double)(pt: Double) -> CGFloat {
-      if max == min {
+    func scale(domainMin: Double, domainMax: Double, screenMin: Double, screenMax: Double)(pt: Double) -> CGFloat {
+      if domainMin == domainMax {
         return 0.0
       } else {
-        let value = ((pt - min) / (max - min)) * (max2 - min2) + min2
+        let value = ((pt - domainMin) / (domainMax - domainMin)) * (screenMax - screenMin) + screenMin
         return CGFloat(value)
       }
     }
     
+    func delta(scale:(Double) -> CGFloat)(pt1: Double, pt2: Double) -> CGFloat {
+      return scale(pt1) - scale(pt2)
+    }
+
     let maxValue = max(positive, negative, neutral)
     let xscale = scale(0, Double(maxValue), 35, Double(self.bounds.width - 35))
     let yscale = scale(0, 3, 0, Double(self.bounds.height))
     
+    let xdelta = delta(xscale)
+    
     positiveLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 0),
-      width: xscale(pt: Double(positive)) - xscale(pt: Double(0)), height: yscale(pt: 1))
+      width: xdelta(pt1: Double(positive), pt2: 0.0), height: yscale(pt: 1))
     neutralLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 1),
-      width: xscale(pt: Double(neutral)) - xscale(pt: Double(0)), height: yscale(pt: 1))
+      width: xdelta(pt1: Double(neutral), pt2: 0.0), height: yscale(pt: 1))
     negativeLayer.frame = CGRect(x: xscale(pt: 0), y: yscale(pt: 2),
-      width: xscale(pt: Double(negative)) - xscale(pt: Double(0)), height: yscale(pt: 1))
+      width: xdelta(pt1: Double(negative), pt2: 0.0), height: yscale(pt: 1))
     
     positiveFace.alpha = 0.0
     negativeFace.alpha = 0.0

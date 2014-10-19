@@ -77,8 +77,8 @@ class TweetTableViewCell: UITableViewCell {
   private func avatarImageSignal(imageUrl: String) -> RACSignal {
     return RACSignal.createSignal{
       (subscriber) -> RACDisposable! in
-      let data = NSData(contentsOfURL: NSURL(string: imageUrl))
-      let image = UIImage(data: data)
+      let data = NSData(contentsOfURL: NSURL(string: imageUrl)!)
+      let image = UIImage(data: data!)
       subscriber.sendNext(image)
       subscriber.sendCompleted()
       return nil
@@ -92,7 +92,7 @@ class TweetTableViewCell: UITableViewCell {
       let encodedSearchText = tweet.status.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
       let url = "https://loudelement-free-natural-language-processing-service.p.mashape.com/nlp-text/?text=" + encodedSearchText!
       
-      let urlRequest = NSMutableURLRequest(URL: NSURL(string: url))
+      let urlRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
       urlRequest.HTTPMethod = "GET"
       urlRequest.addValue("JepIlTfFXKmsh6Xzs8F3FQVfJ1Mbp1qCPfAjsn5b5GxBilACc5", forHTTPHeaderField:"X-Mashape-Key")
       
