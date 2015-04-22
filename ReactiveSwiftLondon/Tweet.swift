@@ -21,10 +21,10 @@ struct Tweet {
   }
   
   init(json: NSDictionary) {
-    let status = json["text"] as String
-    let user = json["user"] as NSDictionary
-    let profileImageUrl = user["profile_image_url"] as String
-    let username = user["screen_name"] as String
+    let status = json["text"] as! String
+    let user = json["user"] as! NSDictionary
+    let profileImageUrl = user["profile_image_url"] as! String
+    let username = user["screen_name"] as! String
     self.init(profileImageUrl: profileImageUrl, username: username, status: status);
   }
 }

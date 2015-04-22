@@ -21,6 +21,6 @@ extension UIColor {
 }
 extension NSJSONSerialization {
   class func parseJSONToDictionary(data: NSData) -> NSDictionary {
-    return JSONObjectWithData(data, options: .AllowFragments, error: nil) as NSDictionary
+    return JSONObjectWithData(data, options: .AllowFragments, error: nil) as! NSDictionary
   }
 }

@@ -67,17 +67,17 @@ class ViewController: UIViewController, UITableViewDataSource {
       }
       .flattenMapAs {
         (text: NSString) -> RACStream in
-        self.signalForSearchWithText(text)
+        self.signalForSearchWithText(text as String)
       }
       .deliverOn(RACScheduler.mainThreadScheduler())
       .subscribeNextAs({
         (tweets: NSDictionary) in
-        let statuses = tweets["statuses"] as [NSDictionary]
+        let statuses = tweets["statuses"] as! [NSDictionary]
         self.tweets = statuses.map { Tweet(json: $0) }
         self.tweetsTableView.reloadData()
         self.tweetsTableView.scrollToTop()
         self.tweetsTableView.alpha = 1.0
-      }, {
+      }, errorClosure: {
         (error) in
         println(error)
       })
@@ -103,7 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource {
   }
   
   private func getTwitterAccount() -> ACAccount? {
-    let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as [ACAccount]
+    let twitterAccounts = self.accountStore.accountsWithAccountType(self.twitterAccountType) as! [ACAccount]
     if twitterAccounts.count == 0 {
       return nil
     } else {
@@ -156,7 +156,7 @@ class ViewController: UIViewController, UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as TweetTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! TweetTableViewCell
     cell.tweet = tweets[indexPath.row]
     return cell
   }
