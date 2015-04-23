@@ -100,7 +100,7 @@ class TweetTableViewCell: UITableViewCell {
       NSURLConnection.sendAsynchronousRequest(urlRequest, queue: queue, completionHandler: {
         (response, data, error) -> Void in
         if error == nil {
-          let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil) as NSDictionary
+          let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: nil) as! NSDictionary
           subscriber.sendNext(json["sentiment-text"])
           subscriber.sendCompleted()
         } else {

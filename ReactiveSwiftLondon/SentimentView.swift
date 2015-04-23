@@ -48,7 +48,7 @@ class SentimentView: UIView {
     NSNotificationCenter.defaultCenter().rac_addObserverForName("sentiment", object: nil)
       .subscribeNextAs {
         (notification: NSNotification) -> () in
-        let sentiment = notification.object as String
+        let sentiment = notification.object as! String
         switch sentiment {
         case "positive":
           self.positive++

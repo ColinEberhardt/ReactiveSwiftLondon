@@ -19,7 +19,7 @@ extension RACSignal {
         // ... still looking into it!
         println("ERROR", next)
       } else {
-        let nextAsT = next! as T
+        let nextAsT = next! as! T
         nextClosure(nextAsT)
       }
     }
@@ -28,7 +28,7 @@ extension RACSignal {
   func subscribeNextAs<T>(nextClosure: (T) -> (), errorClosure: (NSError) -> ()) -> () {
     self.subscribeNext({
       (next: AnyObject!) -> () in
-      let nextAsT = next! as T
+      let nextAsT = next! as! T
       nextClosure(nextAsT)
     }, error: {
       (error: NSError!) -> Void in
@@ -39,7 +39,7 @@ extension RACSignal {
   func mapAs<T: AnyObject, U: AnyObject>(mapClosure: (T) -> U) -> RACSignal {
     return self.map {
       (next: AnyObject!) -> AnyObject! in
-      let nextAsT = next as T
+      let nextAsT = next as! T
       return mapClosure(nextAsT)
     }
   }
@@ -47,7 +47,7 @@ extension RACSignal {
   func filterAs<T: AnyObject>(filterClosure: (T) -> Bool) -> RACSignal {
     return self.filter {
       (next: AnyObject!) -> Bool in
-      let nextAsT = next as T
+      let nextAsT = next as! T
       return filterClosure(nextAsT)
     }
   }
@@ -55,7 +55,7 @@ extension RACSignal {
   func flattenMapAs<T: AnyObject>(flattenMapClosure: (T) -> RACStream) -> RACSignal {
     return self.flattenMap {
       (next: AnyObject!) -> RACStream in
-      let nextAsT = next as T
+      let nextAsT = next as! T
       return flattenMapClosure(nextAsT)
     }
   }
@@ -63,7 +63,7 @@ extension RACSignal {
   func doNextAs<T: AnyObject>(nextClosure: (T) -> ()) -> RACSignal {
     return self.doNext {
       (next: AnyObject!) -> () in
-      let nextAsT = next as T
+      let nextAsT = next as! T
       nextClosure(nextAsT)
     }
   }
@@ -73,7 +73,7 @@ class RACSignalEx {
   class func combineLatestAs<T, U, R: AnyObject>(signals: [RACSignal], reduce: (T,U) -> R) -> RACSignal {
     return RACSignal.combineLatest(signals).mapAs {
       (tuple: RACTuple) -> R in
-      return reduce(tuple.first as T, tuple.second as U)
+      return reduce(tuple.first as! T, tuple.second as! U)
     }
   }
 }
